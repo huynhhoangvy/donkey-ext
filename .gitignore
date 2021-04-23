@@ -1,1 +1,7 @@
 .idea
+/dist
+.project
+.settings/
+node_modules/
+.npm
+.env
