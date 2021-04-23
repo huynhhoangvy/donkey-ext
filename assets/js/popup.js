@@ -1,37 +1,13 @@
-// // Initialize button with user's preferred color
-// const changeColor = document.getElementById('changeColor');
-//
-// // Get the color props from chrome storage
-// chrome.storage.sync.get('color', ({ color }) => {
-// 	changeColor.style.backgroundColor = color;
-// });
-//
-// // Click the button -> inject setPageBackgroundColor into current page
-// changeColor.addEventListener('click', async () => {
-// 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-//
-// 	chrome.scripting.executeScript({
-// 		target: { tabId: tab.id },
-// 		function: setPageBackgroundColor,
-// 	});
-// });
-//
-// // The body of this function will be executed as a content script inside the current page
-// const setPageBackgroundColor = () => {
-// 	chrome.storage.sync.get('color', ({ color }) => {
-// 		document.body.style.backgroundColor = color;
-// 	});
-// };
-
 // Initialize button with user's preferred color
-let changeColor = document.getElementById("changeColor");
+const changeColor = document.getElementById('changeColor');
 
-chrome.storage.sync.get("color", ({ color }) => {
+// Get the color props from chrome storage
+chrome.storage.sync.get('color', ({ color }) => {
 	changeColor.style.backgroundColor = color;
 });
 
-// When the button is clicked, inject setPageBackgroundColor into current page
-changeColor.addEventListener("click", async () => {
+// Click the button -> inject setPageBackgroundColor into current page
+changeColor.addEventListener('click', async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
 	chrome.scripting.executeScript({
@@ -40,10 +16,9 @@ changeColor.addEventListener("click", async () => {
 	});
 });
 
-// The body of this function will be executed as a content script inside the
-// current page
-function setPageBackgroundColor() {
-	chrome.storage.sync.get("color", ({ color }) => {
+// The body of this function will be executed as a content script inside the current page
+const setPageBackgroundColor = () => {
+	chrome.storage.sync.get('color', ({ color }) => {
 		document.body.style.backgroundColor = color;
 	});
-}
+};
