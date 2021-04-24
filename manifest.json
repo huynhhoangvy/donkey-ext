@@ -6,12 +6,19 @@
     "background": {
         "service_worker": "background.js"
     },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": ["content-script.js"]
+        }
+    ],
     "options_page": "options.html",
     "permissions": [
         "storage",
         "activeTab",
-        "scripting",
-        "*://*/*"
+        "scripting"
     ],
     "action": {
         "default_popup": "popup.html",

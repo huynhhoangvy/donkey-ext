@@ -1,7 +1,7 @@
 const page = document.getElementById('buttonDiv');
 const selectedClassName = 'current';
 const presetButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
-
+console.log('option')
 // Reacts to a button click by marking the selected button and saving the selection
 const handleButtonClick = e => {
 	// Remove styles from the previously selected color
