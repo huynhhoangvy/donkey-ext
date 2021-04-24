@@ -1,0 +1,15 @@
+localStorage:
+	CAN: 			order, orderClose, session, isBetSession
+	USER_TOKEN: 		access_token, refresh_token
+	BO_BALANCE_TYPE: 	DEMO/LIVE
+	stateOpen: 		live/demo[0].items[0].acc_type/.amt/.time/.type(DOWN/UP)
+
+Network:
+	token:			d.access_token/.country/.refresh_token
+	bet:			d.acc_type/.amt/.ss/.time/.type
+	bo-balance:		d.demoBalance
+	open?page=1&size=10&betAccountType=DEMO:	d.c/.p/.s/.t
+	close?page=1&size=10&betAccountType=DEMO:	d.c[0].betAmount/.betType/.createdDatetime/.result/.transactionId/.userId/.winAmount, d.p, d.s, d.t
+
+
+start -> bet -> localStorage.stateOpen/api.bet -> bo-balance
