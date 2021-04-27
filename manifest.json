@@ -11,14 +11,18 @@
             "matches": [
                 "<all_urls>"
             ],
-            "js": ["content-script.js"]
+            "js": [
+                "jquery-3.6.0.min.js",
+                "content-script.js"
+            ]
         }
     ],
     "options_page": "options.html",
     "permissions": [
         "storage",
         "activeTab",
-        "scripting"
+        "scripting",
+        "tabs"
     ],
     "action": {
         "default_popup": "popup.html",
