@@ -19,7 +19,8 @@ It can't detect `chrome.browserAction.onClick` event.
 * options.html & options.js: Options page
 * popup.html & popup.js: Popup page
 * background.js: script run in background
-* content-script.js: 
+* content-script.js: currently used to access the DOM (document object) to query the button/element and use it
+* wefk.txt: information about api & localStorage data
 
 ### Use extension
 * Click extension icon -> open popup (popup.html & popup.js)
