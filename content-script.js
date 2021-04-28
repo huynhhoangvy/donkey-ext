@@ -1,8 +1,9 @@
+import {
+	isEmpty,
+} from 'lodash';
+
 console.log('LOG FROM CONTENT SCRIPT');
 
-// const scroll = document.getElementById('scrollBtn');
-// scroll.addEventListener('click', () => console.log('click'));
-// scroll.click();
 let currentHostname = window.location.hostname;
 let currentPathname = window.location.pathname;
 let currentProtocol = window.location.protocol;
@@ -46,48 +47,104 @@ const urlChangeHandler = (params) => {
 			case '/login':
 				// TODO: PAGE DISABLES FORM ON LOAD, CANNOT DO ANYTHING
 				console.log('/login');
-				// setTimeout(() => console.log('1sec'), 1000)
-				// $('.contentAuthentication').click()
+				const loginForm = document.querySelector('form.loginForm');
+				const emailField = loginForm.querySelector('input[name="email"]');
+				const passwordField = loginForm.querySelector('input[name="password"]');
+				const btn = loginForm.getElementsByTagName('button')[1];
+
 				// const loginForm = $('form.loginForm');
 				// const passwordField = loginForm.find('input[name="password"]');
 				// const emailField = loginForm.find('input[name="email]"');
 				// const loginButton = loginForm.find('button.siginButton');
-				const loginForm = document.querySelector('form.loginForm');
-				const emailField = loginForm.querySelector('input[name="email"]');
-				const passwordField = loginForm.querySelector('input[name="password"]');
 				// const loginButton = loginForm.querySelector('button.siginButton');
-				const btn = loginForm.getElementsByTagName('button')[1];
-				console.log('password: ', passwordField);
-				console.log('email: ', emailField);
-				// passwordField.focus();
-				// console.log(document.getElementsByClassName('loginForm'))
-				// loginForm.click();
-				console.log('login form: ', loginForm);
-				// console.log('login button: ', loginButton);
 				// const btn = loginForm.find('button')[1];
-				console.log(btn);
 				// const emailField = loginForm.find('input#md-input-s81h0n38t')
-				console.log('email parent: ', emailField.parentElement);
-				console.log('password parent: ', passwordField.parentElement);
+
+				// passwordField.focus();
+				// loginForm.click();
+
 				// !passwordField.parentElement.classList.contains('md-has-value') && passwordField.parentElement.classList.add('md-has-value');
 				// !emailField.parentElement.classList.contains('md-has-value') && emailField.parentElement.classList.add('md-has-value');
-				// console.log('button class list: ', btn.classList)
 				// btn.classList.contains('btn-secondary') && btn.classList.remove('btn-secondary');
 				// btn.classList.contains('btn') && btn.classList.remove('btn');
 				// !btn.classList.contains('button') && btn.classList.add('button');
 				// !btn.classList.contains('wbtn') && btn.classList.add('wbtn');
 				// !btn.classList.contains('siginButton') && btn.classList.add('siginButton');
 				// btn.removeAttribute('disabled');
-				console.log('pw: ', passwordField);
-				console.log('email: ', emailField);
-				console.log('btn: ', btn);
 
 				setTimeout(() => {
-					document.querySelector('form.loginForm').getElementsByTagName('button')[1].click()
-				// btn.click();
-					// console.log('click login: ', loginButton);
-					// loginButton && loginButton.click();
+					clickButton(document.querySelector('form.loginForm').getElementsByTagName('button')[1]);
 				}, 3000);
+				break;
+
+			case '/index':
+				console.log('index page');
+				let lastUpDown, betResult;
+				let lastBet = { value: 0, trend: true};
+				let currentBet = { value: 0, trend: true };
+				let resultTrend = false;
+				let systemTrend = false;
+
+				const betInput = document.getElementById('InputNumber');
+				const upButton = document.querySelector('.btnSuccess');
+				const downButton = document.querySelector('.btnDown');
+				const CAN_DATA = JSON.parse(window.localStorage.getItem('CAN'));
+				const isBetSession = CAN_DATA.isBetSession;
+
+				// TODO: BET SESSION
+				if ( isBetSession ) {
+
+					// this is the first bet
+					if ( isEmpty(lastBet) === true ) {
+
+						betInput.value = 1;
+
+						downButton.click();
+						currentBet.trend = false;
+						currentBet.value = 1;
+
+					} else {
+
+						// last bet is WIN
+						if ( resultTrend === true ) {
+							// restart bet value
+							betInput.value = 1;
+							currentBet.value = 1;
+
+							if ( lastBet.trend === true ) {
+								// downButton.click();
+								currentBet.trend = true;
+							} else {
+								// upButton.click();
+								currentBet.trend = false;
+							}
+						} else {
+							// LOSE, x2 bet
+							betInput.value = lastBet.value * 2;
+							if ( lastBet.trend === true ) {
+								// downButton.click();
+								currentBet.trend = true;
+							} else {
+								// upButton.click();
+								currentBet.trend = false;
+							}
+							currentBet.value = lastBet.value * 2;
+						}
+
+					}
+					console.log('Current bet session info: ', {
+						bet: currentBet.value,
+						trend: currentBet.trend,
+						lastSession: { bet: lastBet.value, result: lastBet.result },
+					});
+				} else {
+					// TODO: RESULT SESSION
+					console.log('bet session is over, result here');
+
+					//
+
+				}
+				console.log('print local: ', window.localStorage);
 				break;
 
 			default:
