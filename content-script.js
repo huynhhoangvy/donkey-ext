@@ -48,16 +48,46 @@ const urlChangeHandler = (params) => {
 				console.log('/login');
 				// setTimeout(() => console.log('1sec'), 1000)
 				// $('.contentAuthentication').click()
-				const loginForm = $('form.loginForm');
-				// const passwordField = loginForm.find('input[name="password"]')
-				// console.log('password: ', passwordField)
-				// passwordField.focus()
+				// const loginForm = $('form.loginForm');
+				// const passwordField = loginForm.find('input[name="password"]');
+				// const emailField = loginForm.find('input[name="email]"');
+				// const loginButton = loginForm.find('button.siginButton');
+				const loginForm = document.querySelector('form.loginForm');
+				const emailField = loginForm.querySelector('input[name="email"]');
+				const passwordField = loginForm.querySelector('input[name="password"]');
+				// const loginButton = loginForm.querySelector('button.siginButton');
+				const btn = loginForm.getElementsByTagName('button')[1];
+				console.log('password: ', passwordField);
+				console.log('email: ', emailField);
+				// passwordField.focus();
 				// console.log(document.getElementsByClassName('loginForm'))
 				// loginForm.click();
-				const loginButton = loginForm.find('button.siginButton');
 				console.log('login form: ', loginForm);
-				console.log('login button: ', loginButton);
-				loginButton && loginButton.click();
+				// console.log('login button: ', loginButton);
+				// const btn = loginForm.find('button')[1];
+				console.log(btn);
+				// const emailField = loginForm.find('input#md-input-s81h0n38t')
+				console.log('email parent: ', emailField.parentElement);
+				console.log('password parent: ', passwordField.parentElement);
+				// !passwordField.parentElement.classList.contains('md-has-value') && passwordField.parentElement.classList.add('md-has-value');
+				// !emailField.parentElement.classList.contains('md-has-value') && emailField.parentElement.classList.add('md-has-value');
+				// console.log('button class list: ', btn.classList)
+				// btn.classList.contains('btn-secondary') && btn.classList.remove('btn-secondary');
+				// btn.classList.contains('btn') && btn.classList.remove('btn');
+				// !btn.classList.contains('button') && btn.classList.add('button');
+				// !btn.classList.contains('wbtn') && btn.classList.add('wbtn');
+				// !btn.classList.contains('siginButton') && btn.classList.add('siginButton');
+				// btn.removeAttribute('disabled');
+				console.log('pw: ', passwordField);
+				console.log('email: ', emailField);
+				console.log('btn: ', btn);
+
+				setTimeout(() => {
+					document.querySelector('form.loginForm').getElementsByTagName('button')[1].click()
+				// btn.click();
+					// console.log('click login: ', loginButton);
+					// loginButton && loginButton.click();
+				}, 3000);
 				break;
 
 			default:
